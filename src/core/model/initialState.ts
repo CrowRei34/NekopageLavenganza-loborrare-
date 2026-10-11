@@ -41,6 +41,21 @@ const articleWorkspace = (
 
 const articles: Array<{ name: string; document: InfoDocument }> = [
   {
+    name: 'ayuda',
+    document: {
+      eyebrow: 'Bienvenido · Mini Niri',
+      title: 'Bienvenido a Neko Void',
+      body: 'Este mini Niri interactivo se recorre como un escritorio. Explora sus workspaces con estos controles:',
+      bullets: [
+        'Rueda vertical: cambia de workspace.',
+        'Rueda horizontal o Shift + rueda vertical: cambia de columna.',
+        'Pulsa un número de la barra superior para ir directamente a ese workspace.',
+        'Ctrl/⌘ + ↑/↓ cambia de workspace; Ctrl/⌘ + ←/→ cambia de columna.',
+        'Pulsa el icono de terminal para abrir otra terminal. Escribe help para ver los comandos.',
+      ],
+    },
+  },
+  {
     name: 'NEKO VOID',
     document: {
       eyebrow: 'Into the void',
@@ -275,18 +290,7 @@ const initialWorkspaces: Workspace[] = [
 export const initialState: NekovoidState = {
   workspaces: initialWorkspaces,
   activeWorkspaceId: 'workspace-1',
-  terminalSessions: {
-    'workspace-1-terminal-app': {
-      lines: [
-        {
-          id: 0,
-          kind: 'output',
-          text: 'Nekovoid terminal · escribe "help" para ver los comandos.',
-        },
-      ],
-      nextLineId: 1,
-    },
-  },
+  terminalSessions: {},
   settings: {
     accent: 'mint',
     reducedMotion: false,
