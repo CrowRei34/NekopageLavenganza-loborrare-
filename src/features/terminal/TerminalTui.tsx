@@ -589,9 +589,7 @@ const BatPager = ({
       tabIndex={0}
     >
       <header className="bat-header">
-        <span>────</span>
-        <strong>{path}</strong>
-        <span>────</span>
+        <strong>File: {path}</strong>
       </header>
       <div className="bat-lines">
         {lines.map((line, index) => {
@@ -617,10 +615,6 @@ const BatPager = ({
           )
         })}
       </div>
-      <footer className="bat-footer">
-        <span>bat · theme: Neko Void</span>
-        <span>{lines.length} lines · q quit · ↑/↓ scroll</span>
-      </footer>
     </section>
   )
 }
@@ -643,6 +637,28 @@ const highlightBatLine = (line: string) => {
       part
     )
   })
+}
+
+export const BatOutput = ({ path, content }: { path: string; content: string }) => {
+  const lines = content.split('\n')
+  return (
+    <section className="terminal-bat-output" aria-label={`bat output: ${path}`}>
+      <header className="terminal-bat-output__header">
+        <span className="terminal-bat-output__gutter" aria-hidden="true" />
+        <span className="terminal-bat-output__path">
+          File: <strong>{path}</strong>
+        </span>
+      </header>
+      <div className="terminal-bat-output__body">
+        {lines.map((line, index) => (
+          <div className="terminal-bat-output__line" key={`${index}-${line}`}>
+            <span className="terminal-bat-output__number">{index + 1}</span>
+            <span className="terminal-bat-output__content">{highlightBatLine(line)}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
 }
 
 const NanoEditor = ({

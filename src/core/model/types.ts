@@ -43,8 +43,9 @@ export interface Workspace {
 
 export interface TerminalLine {
   id: number
-  kind: 'input' | 'output' | 'error' | 'fetch'
+  kind: 'input' | 'output' | 'error' | 'fetch' | 'bat'
   text: string
+  path?: string
 }
 
 export interface TerminalSession {

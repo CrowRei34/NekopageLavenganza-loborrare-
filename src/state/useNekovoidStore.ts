@@ -28,8 +28,9 @@ export const createTerminalSession = (): TerminalSession => ({
 
 export const appendTerminalLines = (
   session: TerminalSession,
-  lines: Array<Pick<TerminalLine, 'kind' | 'text'>>,
+  lines: Array<Omit<TerminalLine, 'id'>>,
 ): TerminalSession => ({
+  ...session,
   lines: [
     ...session.lines,
     ...lines.map((line, index) => ({
