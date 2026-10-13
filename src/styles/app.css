@@ -938,14 +938,30 @@ button {
   height: 100%;
   padding: 30px 24px;
   overflow: auto;
+  scroll-behavior: auto;
   font-family: CozetteVector, 'JetBrains Mono', monospace;
   font-size: 14px;
   line-height: 1.4;
   scrollbar-width: none;
 }
 
+.terminal-output * {
+  scroll-behavior: auto;
+}
+
 .terminal-output::-webkit-scrollbar {
   display: none;
+}
+
+.terminal-output--screen {
+  padding: 0;
+  overflow: hidden;
+}
+
+.terminal-output--screen > .terminal-tui {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .terminal-pfetch {
@@ -1054,6 +1070,46 @@ button {
 
 .terminal-line--error {
   color: var(--tui-error);
+}
+
+.terminal-bat-output {
+  width: 100%;
+  margin: 0 0 0.35em;
+  border-top: 1px solid color-mix(in srgb, var(--tui-border) 65%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--tui-border) 65%, transparent);
+}
+
+.terminal-bat-output__header,
+.terminal-bat-output__line {
+  display: grid;
+  grid-template-columns: 5ch minmax(0, 1fr);
+}
+
+.terminal-bat-output__header {
+  border-bottom: 1px solid color-mix(in srgb, var(--tui-border) 65%, transparent);
+}
+
+.terminal-bat-output__gutter,
+.terminal-bat-output__number {
+  border-right: 1px solid color-mix(in srgb, var(--tui-border) 65%, transparent);
+}
+
+.terminal-bat-output__path,
+.terminal-bat-output__content {
+  min-width: 0;
+  padding-left: 1ch;
+  overflow-wrap: anywhere;
+}
+
+.terminal-bat-output__path {
+  padding-block: 0.15em;
+}
+
+.terminal-bat-output__number {
+  padding-right: 1ch;
+  color: var(--tui-muted);
+  text-align: right;
+  user-select: none;
 }
 
 .terminal-tui {
@@ -1563,18 +1619,15 @@ button {
 .bat-pager {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  min-height: 0;
   overflow: auto;
   color: #d9e5de;
   background: #101719;
-  border: 1px solid #486258;
 }
 
 .bat-header {
   display: flex;
-  justify-content: center;
-  gap: 1ch;
-  padding: 5px 10px;
+  padding: 5px 0;
   color: #b6c9bf;
   border-bottom: 1px solid #31443e;
 }
@@ -1624,16 +1677,6 @@ button {
   color: #c59ed7;
 }
 
-.bat-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: auto;
-  padding: 5px 8px;
-  color: #111719;
-  background: #a4cfb1;
-}
-
 .tui-sr-only {
   position: absolute;
   width: 1px;
@@ -1647,22 +1690,68 @@ button {
   margin: 0;
 }
 
-.terminal-input label {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5ch;
+.terminal-input__label {
+  position: relative;
+  display: block;
+  min-height: 1.4em;
+  line-height: inherit;
+}
+
+.terminal-input__command {
+  position: relative;
+  display: inline-block;
+  min-width: 1px;
+  line-height: inherit;
+  vertical-align: baseline;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.terminal-input__command::before {
+  content: '\200b';
+}
+
+.terminal-input__cursor {
+  position: absolute;
+  top: 3px;
+  z-index: 1;
+  width: 1px;
+  height: 14px;
+  line-height: 1;
+  background: currentColor;
+  pointer-events: none;
+  animation: terminal-cursor-blink 1s steps(1, end) infinite;
+}
+
+.terminal-input__cursor-measure {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  white-space: pre;
+  pointer-events: none;
+}
+
+@keyframes terminal-cursor-blink {
+  50% {
+    opacity: 0;
+  }
 }
 
 .terminal-input input {
-  min-width: 0;
-  flex: 1;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   padding: 0;
-  color: inherit;
+  color: transparent;
   font: inherit;
-  caret-color: var(--tui-fg);
+  line-height: inherit;
+  caret-color: transparent;
   background: transparent;
   border: 0;
   outline: 0;
+  cursor: text;
 }
 
 .empty-workspace {
