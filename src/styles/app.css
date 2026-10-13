@@ -1,3 +1,11 @@
+@font-face {
+  font-family: CozetteVector;
+  src: url('/fonts/CozetteVector.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   color: var(--foreground);
   background: #0e1214;
@@ -561,7 +569,7 @@ button {
   background: color-mix(in srgb, var(--surface) 88%, transparent);
   border: 1px solid color-mix(in srgb, var(--tui-border) 16%, transparent);
   backdrop-filter: blur(6px);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: CozetteVector, 'CozetteVector Nerd Font', ui-monospace, monospace;
   font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -654,7 +662,7 @@ button {
 .info-window__eyebrow {
   margin-bottom: 16px;
   color: var(--mint);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: CozetteVector, 'CozetteVector Nerd Font', ui-monospace, monospace;
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -685,7 +693,7 @@ button {
   margin: 32px 0 0;
   padding: 0;
   color: var(--tui-fg);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: CozetteVector, 'CozetteVector Nerd Font', ui-monospace, monospace;
   font-size: 12px;
   list-style: none;
 }
@@ -922,7 +930,7 @@ button {
   display: block;
   flex: 0 0 auto;
   margin: 0;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: CozetteVector, 'CozetteVector Nerd Font', ui-monospace, monospace;
   font-size: clamp(16px, 1.65vw, 22px);
   line-height: 1;
   white-space: pre;
@@ -993,7 +1001,7 @@ button {
   align-content: center;
   justify-items: center;
   color: color-mix(in srgb, var(--tui-fg) 70%, transparent);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: CozetteVector, 'CozetteVector Nerd Font', ui-monospace, monospace;
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
