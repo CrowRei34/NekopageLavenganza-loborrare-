@@ -45,6 +45,24 @@ describe('reduceNekovoid', () => {
     expect(workspace.activeColumnId).toBe(workspace.columns[2].id)
   })
 
+  it('stores a custom column width and clamps it to a safe minimum', () => {
+    const resized = reduceNekovoid(initialState, {
+      type: 'resize-column',
+      workspaceId: 'workspace-1',
+      columnId: 'workspace-1-terminal',
+      width: 812,
+    })
+    expect(resized.workspaces[0].columns[1].customWidth).toBe(812)
+
+    const clamped = reduceNekovoid(resized, {
+      type: 'resize-column',
+      workspaceId: 'workspace-1',
+      columnId: 'workspace-1-terminal',
+      width: 10,
+    })
+    expect(clamped.workspaces[0].columns[1].customWidth).toBe(320)
+  })
+
   it('preserves the empty workspace at the end', () => {
     const afterClose = reduceNekovoid(initialState, {
       type: 'close-window',

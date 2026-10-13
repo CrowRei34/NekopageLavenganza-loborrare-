@@ -40,6 +40,14 @@ export const ColumnStrip = ({ workspace }: ColumnStripProps) => {
           column={column}
           active={workspace.activeColumnId === column.id}
           onFocus={() => dispatch({ type: 'focus-column-id', columnId: column.id })}
+          onResize={(width) =>
+            dispatch({
+              type: 'resize-column',
+              workspaceId: workspace.id,
+              columnId: column.id,
+              width,
+            })
+          }
         />
       ))}
     </div>

@@ -28,6 +28,7 @@ export interface WebWindow {
 export interface Column {
   id: ColumnId
   width: 'narrow' | 'medium' | 'wide'
+  customWidth?: number
   windows: WebWindow[]
 }
 
@@ -42,13 +43,14 @@ export interface Workspace {
 
 export interface TerminalLine {
   id: number
-  kind: 'input' | 'output' | 'error'
+  kind: 'input' | 'output' | 'error' | 'fetch'
   text: string
 }
 
 export interface TerminalSession {
   lines: TerminalLine[]
   nextLineId: number
+  virtualFiles?: Record<string, string>
 }
 
 export interface NekovoidSettings {

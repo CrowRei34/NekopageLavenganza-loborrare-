@@ -60,6 +60,23 @@ const focusColumn = (state: NekovoidState, columnId: string): void => {
   withWorkspace(state, { ...workspace, activeColumnId: columnId })
 }
 
+const resizeColumn = (
+  state: NekovoidState,
+  workspaceId: string,
+  columnId: string,
+  width: number,
+): void => {
+  const workspace = state.workspaces.find((item) => item.id === workspaceId)
+  if (!workspace || !Number.isFinite(width)) return
+  const customWidth = Math.max(320, Math.min(2400, Math.round(width)))
+  withWorkspace(state, {
+    ...workspace,
+    columns: workspace.columns.map((column) =>
+      column.id === columnId ? { ...column, customWidth } : column,
+    ),
+  })
+}
+
 const createTerminalColumn = (workspace: Workspace, serial: number): Column => ({
   id: `${workspace.id}-terminal-${serial}`,
   width: 'narrow',
@@ -134,6 +151,9 @@ export const reduceNekovoid = (state: NekovoidState, command: NekovoidCommand): 
       break
     case 'focus-column-id':
       focusColumn(next, command.columnId)
+      break
+    case 'resize-column':
+      resizeColumn(next, command.workspaceId, command.columnId, command.width)
       break
     case 'open-terminal':
       openTerminal(next, command.workspaceId)
