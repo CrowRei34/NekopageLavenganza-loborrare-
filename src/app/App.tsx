@@ -1,5 +1,12 @@
-import { useEffect, useRef, type WheelEvent as ReactWheelEvent } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type WheelEvent as ReactWheelEvent,
+} from 'react'
 import type { Direction } from '../core/navigation/commands'
+import { wallpapers, type WallpaperId } from '../features/wallpaper/catalog'
 import { TopBar } from '../features/topbar/TopBar'
 import { WorkspaceRail } from '../features/workspaces/WorkspaceRail'
 import { useNekovoidStore } from '../state/useNekovoidStore'
@@ -14,6 +21,32 @@ export const App = () => {
   const dispatch = useNekovoidStore((state) => state.dispatch)
   const activeWorkspaceId = useNekovoidStore((state) => state.activeWorkspaceId)
   const lastWheelAt = useRef(0)
+  const [selectedWallpaper, setSelectedWallpaper] = useState<WallpaperId>('original')
+  const activeWallpaper =
+    wallpapers.find((wallpaper) => wallpaper.id === selectedWallpaper) ?? wallpapers[0]
+  const palette = activeWallpaper?.palette
+  const themeStyle: CSSProperties | undefined = palette
+    ? ({
+        '--surface': palette.surface,
+        '--surface-variant': palette.surfaceVariant,
+        '--foreground': palette.onSurface,
+        '--mint': palette.primary,
+        '--mint-strong': palette.hover,
+        '--ink': palette.onPrimary,
+        '--panel': `color-mix(in srgb, ${palette.surfaceVariant} 92%, transparent)`,
+        '--panel-solid': palette.surfaceVariant,
+        '--line': `color-mix(in srgb, ${palette.outline} 45%, transparent)`,
+        '--muted': palette.onSurfaceVariant,
+        '--urgent': palette.error,
+        '--tui-bg': palette.terminalBackground,
+        '--tui-fg': palette.terminalForeground,
+        '--tui-muted': palette.onSurfaceVariant,
+        '--tui-border': palette.outline,
+        '--tui-accent-primary': palette.primary,
+        '--tui-accent-secondary': palette.secondary,
+        '--tui-error': palette.error,
+      } as CSSProperties)
+    : undefined
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -56,9 +89,18 @@ export const App = () => {
   }
 
   return (
-    <div className="nekovoid" onWheel={onWheel} data-active-workspace={activeWorkspaceId}>
-      <TopBar />
-      <div className="desktop-surface">
+    <div
+      className="nekovoid"
+      onWheel={onWheel}
+      data-active-workspace={activeWorkspaceId}
+      data-color-scheme={palette?.id}
+      style={themeStyle}
+    >
+      <TopBar selectedWallpaper={selectedWallpaper} onWallpaperSelect={setSelectedWallpaper} />
+      <div
+        className="desktop-surface"
+        style={activeWallpaper ? { backgroundImage: `url("${activeWallpaper.src}")` } : undefined}
+      >
         <div className="desktop-noise" aria-hidden="true" />
         <WorkspaceRail />
       </div>

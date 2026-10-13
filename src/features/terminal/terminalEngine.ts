@@ -25,9 +25,9 @@ export const executeTerminalCommand = (
   if (!command) return { clear: false, lines: [] }
   if (name === 'clear') return { clear: true, lines: [] }
   if (name === 'help') {
-    return output('help  clear  neofetch  pwd  ls  whoami  date  workspace  echo')
+    return output('help  clear  mikufetch  pwd  ls  whoami  date  workspace  echo')
   }
-  if (name === 'neofetch') {
+  if (name === 'mikufetch' || name === 'neofetch') {
     return output(
       'nekovoid\n  kernel     web-core\n  compositor niri-inspired\n  workspace  ' +
         context.workspaceNumber,

@@ -33,25 +33,28 @@ const articleWorkspace = (
   number: number,
   name: string,
   document: InfoDocument,
+  includeTerminal: boolean,
 ): Workspace =>
   workspace(id, number, name, [
     column(`${id}-info`, [info(`${id}-article`, document.title, document)], 'wide'),
-    column(`${id}-terminal`, [terminal(`${id}-terminal-app`)], 'narrow'),
+    ...(includeTerminal
+      ? [column(`${id}-terminal`, [terminal(`${id}-terminal-app`)], 'narrow')]
+      : []),
   ])
 
 const articles: Array<{ name: string; document: InfoDocument }> = [
   {
     name: 'ayuda',
     document: {
-      eyebrow: 'Bienvenido · Mini Niri',
-      title: 'Bienvenido a Neko Void',
-      body: 'Este mini Niri interactivo se recorre como un escritorio. Explora sus workspaces con estos controles:',
-      bullets: [
-        'Rueda vertical: cambia de workspace.',
-        'Rueda horizontal o Shift + rueda vertical: cambia de columna.',
-        'Pulsa un número de la barra superior para ir directamente a ese workspace.',
-        'Ctrl/⌘ + ↑/↓ cambia de workspace; Ctrl/⌘ + ←/→ cambia de columna.',
-        'Pulsa el icono de terminal para abrir otra terminal. Escribe help para ver los comandos.',
+      eyebrow: 'SESSION 01 / WELCOME',
+      title: 'NEKO VOID',
+      body: 'Void Linux listo para explorar.',
+      showProjectResources: true,
+      bullets: [],
+      controls: [
+        { keys: 'RUEDA ↑↓', action: 'WORKSPACE' },
+        { keys: 'SHIFT + RUEDA', action: 'COLUMNAS' },
+        { keys: 'RUEDA ↔', action: 'TERMINAL' },
       ],
     },
   },
@@ -282,7 +285,13 @@ const articles: Array<{ name: string; document: InfoDocument }> = [
 
 const initialWorkspaces: Workspace[] = [
   ...articles.map((article, index) =>
-    articleWorkspace(`workspace-${index + 1}`, index + 1, article.name, article.document),
+    articleWorkspace(
+      `workspace-${index + 1}`,
+      index + 1,
+      article.name,
+      article.document,
+      index === 0,
+    ),
   ),
   workspace('workspace-empty', articles.length + 1, 'empty', []),
 ]

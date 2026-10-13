@@ -27,7 +27,7 @@ export const ColumnStrip = ({ workspace }: ColumnStripProps) => {
       <div className="empty-workspace" aria-label="Workspace vacío">
         <span className="empty-workspace__glyph">∅</span>
         <p>workspace vacío</p>
-        <span>Abre una terminal desde la barra</span>
+        <span>Sin ventanas en este workspace</span>
       </div>
     )
   }

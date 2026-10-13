@@ -4,11 +4,18 @@ export type WindowId = string
 
 export type AppKind = 'info' | 'terminal'
 
+export interface ControlHint {
+  keys: string
+  action: string
+}
+
 export interface InfoDocument {
   eyebrow: string
   title: string
   body: string
   bullets: string[]
+  controls?: ControlHint[]
+  showProjectResources?: boolean
 }
 
 export interface WebWindow {

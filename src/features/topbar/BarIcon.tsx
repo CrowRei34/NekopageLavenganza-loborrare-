@@ -1,4 +1,4 @@
-// Tabler's original SVG paths for the glyphs used by Noctalia's bar.
+// Launcher glyphs retain their Tabler paths; the link marks are compact custom SVGs.
 // See Tabler.LICENSE.txt for the upstream license.
 const paths = {
   grid: (
@@ -20,40 +20,31 @@ const paths = {
   ),
   terminal: (
     <>
-      <path d="M5 7l5 5l-5 5" />
-      <path d="M12 19l7 0" />
+      <path d="m5 7 5 5-5 5" />
+      <path d="M13 17h6" />
     </>
   ),
-  bell: (
+  waves: (
     <>
-      <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
-      <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
+      <path d="M4 9.25c1.9-1.8 3.8-1.8 5.7 0s3.8 1.8 5.7 0 3.8-1.8 5.7 0" />
+      <path d="M4 14.75c1.9-1.8 3.8-1.8 5.7 0s3.8 1.8 5.7 0 3.8-1.8 5.7 0" />
     </>
   ),
-  wifi: (
+  discord: (
     <>
-      <path d="M12 18l.01 0" />
-      <path d="M9.172 15.172a4 4 0 0 1 5.656 0" />
-      <path d="M6.343 12.343a8 8 0 0 1 11.314 0" />
-      <path d="M3.515 9.515c4.686 -4.687 12.284 -4.687 17 0" />
+      <path d="M8 6.5c2.5-.8 5.5-.8 8 0l2.2 1.2c1.1 2.1 1.7 4.5 1.8 7.2-1.4 1.4-2.8 2.2-4.2 2.6l-1.1-1.5" />
+      <path d="M8 6.5 5.8 7.7C4.7 9.8 4.1 12.2 4 14.9c1.4 1.4 2.8 2.2 4.2 2.6l1.1-1.5" />
+      <path d="M9 13h.01M15 13h.01" />
+      <path d="M9.5 15.2c1.6.8 3.4.8 5 0" />
     </>
   ),
-  volume: (
+  globe: (
     <>
-      <path d="M15 8a5 5 0 0 1 0 8" />
-      <path d="M17.7 5a9 9 0 0 1 0 14" />
-      <path d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5" />
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
     </>
   ),
-  battery: (
-    <>
-      <path d="M6 7h11a2 2 0 0 1 2 2v.5a.5 .5 0 0 0 .5 .5a.5 .5 0 0 1 .5 .5v3a.5 .5 0 0 1 -.5 .5a.5 .5 0 0 0 -.5 .5v.5a2 2 0 0 1 -2 2h-11a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2" />
-      <path d="M7 10l0 4" />
-      <path d="M10 10l0 4" />
-      <path d="M13 10l0 4" />
-      <path d="M16 10l0 4" />
-    </>
-  ),
+  chevron: <path d="m7 10 5 5 5-5" />,
 } as const
 
 interface BarIconProps {

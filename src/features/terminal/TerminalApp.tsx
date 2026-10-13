@@ -6,6 +6,7 @@ import {
   createTerminalSession,
   useNekovoidStore,
 } from '../../state/useNekovoidStore'
+import { PfetchLogo } from './PfetchLogo'
 import { executeTerminalCommand } from './terminalEngine'
 
 interface TerminalAppProps {
@@ -16,6 +17,7 @@ const prompt = '[neko-void ~]$'
 
 export const TerminalApp = ({ windowId }: TerminalAppProps) => {
   const [command, setCommand] = useState('')
+  const [showPfetch, setShowPfetch] = useState(true)
   const outputRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const session = useNekovoidStore((state) => state.terminalSessions[windowId])
@@ -47,6 +49,7 @@ export const TerminalApp = ({ windowId }: TerminalAppProps) => {
       : appendTerminalLines(activeSession, [inputLine, ...result.lines])
 
     setTerminalSession(windowId, nextSession)
+    if (result.clear) setShowPfetch(false)
     setCommand('')
   }
 
@@ -59,6 +62,31 @@ export const TerminalApp = ({ windowId }: TerminalAppProps) => {
       }}
     >
       <div className="terminal-output" data-wheel-consumer="true" ref={outputRef}>
+        {showPfetch && (
+          <section className="terminal-pfetch" aria-label="Información del sistema">
+            <div className="terminal-pfetch__command" aria-hidden="true">
+              <span className="terminal-prompt">{prompt}</span>{' '}
+              <strong className="terminal-pfetch__command-name">mikufetch</strong>
+            </div>
+            <PfetchLogo />
+            <div className="terminal-pfetch__details">
+              <strong>neko-void</strong>
+              <span className="terminal-pfetch__rule" />
+              <span>
+                <b>OS</b> Neko Void Linux
+              </span>
+              <span>
+                <b>WM</b> Niri-inspired
+              </span>
+              <span>
+                <b>Shell</b> neko-shell
+              </span>
+              <span>
+                <b>Workspace</b> {String(workspace.number).padStart(2, '0')} — {workspace.name}
+              </span>
+            </div>
+          </section>
+        )}
         {activeSession.lines.map((line) => (
           <div className={`terminal-line terminal-line--${line.kind}`} key={line.id}>
             {line.kind === 'input' && <span className="terminal-prompt">{prompt} </span>}
